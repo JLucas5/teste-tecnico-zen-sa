@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const routes = require('./routes')
 
@@ -9,7 +10,7 @@ mongoose.connect('mongodb+srv://zensadb:zensadb@cluster0.f1kph.mongodb.net/zensa
      useNewUrlParser: true,
      useUnifiedTopology: true
 })
-
+app.use(cors())
 app.use(express.json())
 app.use(routes)
 
