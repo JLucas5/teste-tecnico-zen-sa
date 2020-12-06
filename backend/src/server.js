@@ -11,6 +11,7 @@ mongoose.connect('mongodb+srv://zensadb:zensadb@cluster0.f1kph.mongodb.net/zensa
 })
 
 app.use(express.json())
+app.use(routes)
 
 app.listen(3334)
 
