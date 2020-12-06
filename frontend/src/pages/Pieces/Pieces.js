@@ -45,8 +45,16 @@ export default function Pieces({ history }){
     
     async function savePiece(){
         
-        if(liquidWeight <= 0 || grossWeight <= 0){
-            alert("Peso negativo!")
+        if(!grossWeight ||!liquidWeight || !name){
+            alert('Preencha os campos obrigatórios')
+            return
+        }
+         if(liquidWeight <= 0 ){
+            alert("Peso bruto inválido!")
+            return;
+        }
+        if( grossWeight <= 0){
+            alert("Peso bruto inválido!")
             return;
         }
         if(liquidWeight > grossWeight){
@@ -58,8 +66,8 @@ export default function Pieces({ history }){
         const response = await api.savePiece({
             "name": name,
             "applicationVehicle": applicationVehicle,
-            "grossWeight": parseFloat(grossWeight).toFixed(2),
-            "liquidWeight": parseFloat(liquidWeight).toFixed(2),
+            "grossWeight": parseFloat(grossWeight).toFixed(2).toString(),
+            "liquidWeight": parseFloat(liquidWeight).toFixed(2).toString(),
         })
 
         setPieces(response.data)
@@ -68,26 +76,43 @@ export default function Pieces({ history }){
         handleCloseNew()
     }
 
+    /**
+     * Esses métodos garantem que os pesos serão corrigidos com duas casas decimais
+     */
+    const handleLiquidBlur =(e) => {
+        var num = parseFloat(liquidWeight);
+        var cleanNum = num.toFixed(2);
+        setLiquidWeight(cleanNum);
+    }
     const handleGrossBlur =(e) => {
         var num = parseFloat(grossWeight);
         var cleanNum = num.toFixed(2);
         setGrossWeight(cleanNum);
-  }
+    }
   
-    const handleCloseNew = () => setShowNewModal(false)
-    const handleNewRecord = () => setShowNewModal(true)
+    /**
+     * Esses métodos gerenciam o modal
+     */
+    const handleCloseNew = () => {
+        setShowNewModal(false)
+        setName('')
+        setApplicationVehicle('')
+        setGrossWeight('')
+        setLiquidWeight('')
+    }
+    const handleOpenNew = () => setShowNewModal(true)
 
     return (
         <>
             <button
 				className="table-button new-button"
 				onClick={() => {
-					handleNewRecord()
+					handleOpenNew()
 				}}>
 				Novo
 			</button>
             <Table
-                
+
 				className="pieces-table"
 				striped
 				bordered
@@ -195,6 +220,7 @@ export default function Pieces({ history }){
                         placeholder="Peso líquido"
                         value={liquidWeight}
                         onChange={(event) => setLiquidWeight(event.target.value)}
+                        onBlur={(event)=> handleLiquidBlur(event)}
                         required
                         />
                 </div>
