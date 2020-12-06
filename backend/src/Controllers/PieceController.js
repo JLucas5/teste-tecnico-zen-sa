@@ -17,9 +17,9 @@ module.exports = {
 
         return res.json(pieceList)
     },
-    
+
     async delete(req, res) {
-		const { piece_id } = req.body
+		const { piece_id } = req.params
 
 		await Piece.findByIdAndDelete(piece_id)
 
