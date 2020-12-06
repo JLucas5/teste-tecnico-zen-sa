@@ -1,27 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-
-* {
-	margin: 0;
-	padding: 0;
-	outline: 0;
-	box-sizing: border-box;
+.container {
+	margin: 10vh auto 0;
+	max-width: 85vw;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
-
-html,
-body,
-#root {
-	min-height: 100%;
-}
-
-body {
-	background: #000 url("./assets/background.jpg") no-repeat;
-	background-size: cover;
-	-webkit-font-smoothing: antialiased !important;
-}
-
-body,
-input,
 button {
-	font-family: "Roboto", Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-family: "Roboto", sans-serif;
+}
+body {
+	background-color: #222831 !important;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+label {
+	color: #ececec;
+}
+
+input {
+	background-color: #ececec;
+}
+
+.logout-button {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	border-radius: 9%;
+	background-color: #f2a365;
+	border: none;
+	color: #30475e;
+	font-weight: bold;
+}
+.logout-button:hover {
+	opacity: 0.7;
+}
+
+.navbar {
+	top: 0 !important;
 }
